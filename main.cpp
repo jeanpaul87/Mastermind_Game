@@ -1,13 +1,13 @@
 #include <iostream>
-#include "Lexique.h"
+#include "Automate.h"
 
 
 int main()
 {
     std::cout << "Hello World!\n";
-    Lexique lexique;
+    Automate automate;
 
-   lexique.creerLexique("lexique_1");
+    automate.creerLexique("lexique_1");
     //creerVerif()
     //modeAuto()
     //modeVersus()

@@ -1,6 +1,10 @@
 #pragma once
 #include "Etat.h"
 #include <vector>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
 using namespace std;
 
 class Automate
@@ -8,10 +12,11 @@ class Automate
 public:
 	Automate();
 	~Automate();
-	Automate(const string& mot) : mot_(mot), nbEtats_(mot.size()) {};
 
+	void creerLexique(const string& lexique);
+	
 private:
-	string mot_;
 	int nbEtats_;
+	Etat* etatInitial_;
 };
 
