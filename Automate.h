@@ -14,6 +14,10 @@ public:
 	~Automate();
 
 	void creerLexique(const string& lexique);
+
+	int creerVerif(const string& codeSecret);
+
+	//int creerVerif(const string& codeSecret);
 	
 private:
 	int nbEtats_;

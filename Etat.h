@@ -14,8 +14,20 @@ public:
 	void ajouterSigma(string& sigma);
 	bool voisinTrouver(string& lettre);
 
+	vector<Etat*> getListEtatSuivant();
+	vector<string> getListlisteSigma();
+
+	char& getNomDeEtat();
+
+	char& getNomEtatvoisin(char& lettre);
+
+	Etat* getEtatSuivant(const string& lettre);
+
+	//Etat* getEtat(string& lettre);
+
+
 private:
-	string nom_;
+	char& nom_;
 	bool estSortie_;
 	int numero_;
 	vector<Etat*> etatSuivant_;

@@ -40,3 +40,28 @@ bool Etat::voisinTrouver(string& lettre)
 	}
 	return false;
 }
+
+vector<Etat*> Etat::getListEtatSuivant()
+{
+	return etatSuivant_;
+}
+
+vector<string> Etat::getListlisteSigma()
+{
+	return listeSigma_;
+}
+
+char& Etat::getNomDeEtat() {
+	return nom_;
+}
+
+char& Etat::getNomEtatvoisin(char& lettre) {
+	char returning = '&';
+	for (int i = 0; i < etatSuivant_.size() ; i++)
+	{
+		if (etatSuivant_[i]->getNomDeEtat() == lettre) return etatSuivant_[i]->getNomDeEtat();
+		return returning;
+	}
+}
+
+Etat* Etat::()
