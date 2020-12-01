@@ -6,30 +6,41 @@ using namespace std;
 class Etat
 {
 public:
-	Etat();
-	Etat(const string& nom, bool estSortie, int numero);
+	Etat(char nom, bool estSortie, int numero,string nomEtatPrecedant);
 	~Etat();
 
 	void ajouterEtat(Etat* sortant);
 	void ajouterSigma(string& sigma);
-	bool voisinTrouver(string& lettre);
+	void setLettrePrecedantesDeEtat(string mot);
+	string getLettrePrecedantesDeEtat();
+	//bool voisinTrouver(const lettre);
+	bool estSortie();
+
+	int getNumeroEtat();
+
+	bool voisinTrouver(char& lettre);
+
+	void vientDeSeVisiter();
 
 	vector<Etat*> getListEtatSuivant();
+	bool getEstVisiter();
 	vector<string> getListlisteSigma();
 
 	char& getNomDeEtat();
 
 	char& getNomEtatvoisin(char& lettre);
 
-	Etat* getEtatSuivant(const string& lettre);
+	Etat* getEtatSuivant(const char& lettre);
 
 	//Etat* getEtat(string& lettre);
 
 
 private:
-	char& nom_;
+	char nom_;
 	bool estSortie_;
+	bool estVisiter_;
 	int numero_;
+	string LettrePrecedantesDeEtat_;
 	vector<Etat*> etatSuivant_;
 	vector<string> listeSigma_;
 };

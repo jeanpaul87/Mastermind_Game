@@ -1,13 +1,12 @@
 #include "Etat.h"
 
-Etat::Etat()
-{
-}
 
-Etat::Etat(const string& nom,bool estSortie, int numero):
+Etat::Etat(char nom, bool estSortie, int numero, string nomEtatPrecedant) :
 	nom_(nom),
 	estSortie_(estSortie),
-	numero_(numero) 
+	numero_(numero),
+	LettrePrecedantesDeEtat_(nomEtatPrecedant),
+	estVisiter_(false)
 {
 }
 
@@ -30,22 +29,39 @@ void Etat::ajouterSigma(string& sigma)
 	}
 	if(!estTrouver)listeSigma_.push_back(sigma);
 }
-
-bool Etat::voisinTrouver(string& lettre)
+void Etat::setLettrePrecedantesDeEtat(string mot) {
+	LettrePrecedantesDeEtat_ = mot;
+}
+string Etat::getLettrePrecedantesDeEtat()
 {
-	for(auto var : listeSigma_)
-	{
-		if(var == lettre)
+	return LettrePrecedantesDeEtat_;
+}
+bool Etat::voisinTrouver(char& lettre)
+{
+	for (int i = 0; i < getListEtatSuivant().size(); i++){
+	
+		if(getListEtatSuivant().at(i)->getNomDeEtat() == lettre)
 			return true;
-	}
+ 	}
 	return false;
 }
-
+void Etat::vientDeSeVisiter() {
+	estVisiter_ = true;
+}
 vector<Etat*> Etat::getListEtatSuivant()
 {
 	return etatSuivant_;
 }
+bool Etat::getEstVisiter() {
+	return estVisiter_;
+}
 
+bool Etat::estSortie() {
+	return estSortie_;
+}
+int Etat::getNumeroEtat() {
+	return numero_;
+}
 vector<string> Etat::getListlisteSigma()
 {
 	return listeSigma_;
@@ -64,4 +80,13 @@ char& Etat::getNomEtatvoisin(char& lettre) {
 	}
 }
 
-Etat* Etat::()
+Etat* Etat::getEtatSuivant(const char& lettre)
+{
+	Etat* etatChercher = new Etat('X',false,0,"");
+	for (int i = 0; i < getListEtatSuivant().size(); i++)
+	{
+		if (getListEtatSuivant().at(i)->getNomDeEtat() == lettre)
+			etatChercher = getListEtatSuivant().at(i);
+	}
+	return etatChercher;
+}

@@ -13,9 +13,12 @@ int main()
     Automate automate;
 
     automate.creerLexique("lexique_1");
-    //creerVerif()
-    //modeAuto()
-    //modeVersus()
+	//automate.creerVerif("bbbbb", "bbbbba");
+	automate.modeAuto();
+	//modeAuto("lexique_1.txt");
+
+	//automate.suggestionDeMot("byrpw");
+	//automate.creerVerif("bbbky", "bbbbb");
     //bool EXIT = false;
     //bool estUnNumero(const string & reponse);
 
@@ -46,32 +49,11 @@ int main()
 }
 */
 
-void modeAuto(const string& lexique){
 
-	string motChoisiOrdinateur;
-
-	vector<string> vecteurLexique;
-    ifstream file(lexique);
-    string line;
-
-    while (getline(file, line)) vecteurLexique.push_back(line);
-    
-    motChoisiOrdinateur = vecteurLexique[rand() % vecteurLexique.size()];
-
-	cout << "Entrer votre code: " << endl;
-	string motUser;
-	cin >> motUser;
-
-	if(motUser == motChoisiOrdinateur){
-		cout << "Felicitations! vous avez trouve le mot secret";
-	} else {
-		cout << "Mauvaise reponse! Voici le nombre d'erreurs: " << creerVerif(motUser) << endl;
-	}
-}
 
 void modeVersus(const string& lexique){
 
-	/*string motChoisiOrdinateur;
+	string motChoisiOrdinateur;
 
 	vector<string> vecteurLexique;
     ifstream file(lexique);
@@ -84,10 +66,16 @@ void modeVersus(const string& lexique){
 	cout << "Choisir un code secret: ";
 	cin >> user1;
 
-	do{
+	/*do{
 		cout << "Ce mot n'existe pas dans le lexique.\n\n Suggestion(s)\n Aucune..."
 			 << "Choisir un code secret: ";
 			 cin >> user1;
-	} while (!find(vecteurLexique.begin(), vecteurLexique.end(), user1) != vecteurLexique.end())
-*/
+	} while (!find(vecteurLexique.begin(), vecteurLexique.end(), user1) != vecteurLexique.end())*/
+
+
+
 }
+
+//1- input une lettre et suggest des mots
+	//user input bb
+//2- find a word in automate
