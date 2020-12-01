@@ -14,10 +14,10 @@ int main()
 
     automate.creerLexique("lexique_1");
 	//automate.creerVerif("bbbbb", "bbbbba");
-	automate.modeAuto();
+	//automate.modeAuto();
 	//modeAuto("lexique_1.txt");
 
-	//automate.suggestionDeMot("byrpw");
+	//automate.suggestionDeMot("b");
 	//automate.creerVerif("bbbky", "bbbbb");
     //bool EXIT = false;
     //bool estUnNumero(const string & reponse);

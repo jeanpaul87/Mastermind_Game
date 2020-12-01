@@ -8,8 +8,6 @@ Automate::Automate(): etatInitial_(new Etat(' ', false, 0,""))
 {
 }
 
-
-
 Automate::~Automate()
 {
 }
@@ -105,80 +103,62 @@ Etat* Automate::getEtatIniatale() {
 	return etatInitial_;
 }
 void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
-	
 
+	//cout << "\n\n\n" << inputDeLUtilisateur<<"\n\n\n";
 	queue<Etat*> queue;
-
 	Etat* iterateur = etatInitial_;
+	int jangoTest = 0;
+
 	for (int i = 0; i < inputDeLUtilisateur.size(); i++)
 	{
-		iterateur = iterateur->getEtatSuivant(inputDeLUtilisateur[i]);
 		iterateur->vientDeSeVisiter();
+		iterateur = iterateur->getEtatSuivant(inputDeLUtilisateur[i]);
 		//queue.push(iterateur);
-		cout << '\n'<<iterateur->getNomDeEtat();
+		cout << '\n' << iterateur->getNomDeEtat() << '\n';
 	}
-	for (auto i : iterateur->getListEtatSuivant()) {
-		queue.push(i);
+	for (int i = 0; i < iterateur->getListEtatSuivant().size(); i++)
+	{
+		queue.push(iterateur->getListEtatSuivant()[i]);
 	}
 	while (!queue.empty())
 	{
 		iterateur = queue.front();
 		iterateur->vientDeSeVisiter();
+		if (iterateur->estSortie()) {
+			cout << iterateur->getLettrePrecedantesDeEtat() << "\n\n";
+			jangoTest++;
+		}
 		queue.pop();
 		for (auto i : iterateur->getListEtatSuivant()) {
-			if(!i->getEstVisiter())
-			queue.push(i);
-
+			if (!i->getEstVisiter())
+				queue.push(i);
 		}
-		if (!queue.empty()) {
-			//cout << "HIHI";
-			cout << '\n'<<"JJJJ"<<queue.front()->getNomDeEtat();
-		}
-			//queue.pop();
 	}
-	//iterateur = etatInitial_->getEtatSuivant(inputDeLUtilisateur.at(0));
-	//
-	//queue.push(iterateur);
-	//iterateur->vientDeSeVisiter();
-
-
-	//while (!queue.empty()) {
-
-	//	for (auto i : iterateur->getListEtatSuivant()) {
-	//		queue.push(i);
-	//		name.push(i->getNomDeEtat());
-
-	//	}
-	//	
-	//	iterateur = queue.front();
-	//	if (queue.front()->estSortie())
-	//		cout << name.front();
-	//	queue.pop();
-	//}
-
+	cout << '\n' << jangoTest;
 }
 
-void Automate::modeAuto() {
+		void Automate::modeAuto() {
 
-	srand(time(NULL));
-	bool fini = false;
-	auto etat = etatInitial_;
-	int randomInt;
+			srand(time(NULL));
+			bool fini = false;
+			auto etat = etatInitial_;
+			int randomInt;
 
-	if (etat->getListEtatSuivant().empty())
-		cout << "ITSEMPTY\n\n";
-	while (!fini && !etat->getListEtatSuivant().empty()) {
-		randomInt = rand() % etat->getListEtatSuivant().size();
-		cout << "HOP\n";
-		cout << randomInt<<'\n';
-		etat = etat->getListEtatSuivant().at(randomInt);
-		if(etat->estSortie())
-			if (((rand() % (2)) == 1)) {
-				cout<<"\n"<< etat->getLettrePrecedantesDeEtat();
-				fini = true;
+			if (etat->getListEtatSuivant().empty())
+				cout << "ITSEMPTY\n\n";
+			while (!fini && !etat->getListEtatSuivant().empty()) {
+				randomInt = rand() % etat->getListEtatSuivant().size();
+				cout << "HOP\n";
+				cout << randomInt << '\n';
+				etat = etat->getListEtatSuivant().at(randomInt);
+				if (etat->estSortie())
+					if (((rand() % (2)) == 1)) {
+						cout << "\n" << etat->getLettrePrecedantesDeEtat();
+						fini = true;
+					}
+
 			}
+			cout << "\n" << etat->getLettrePrecedantesDeEtat();
 
-	}
-	cout<<"\n"<<etat->getLettrePrecedantesDeEtat();
+		}
 	
-}
