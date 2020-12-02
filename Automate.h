@@ -23,10 +23,15 @@ public:
 
 	void modeAuto();
 
+	void choisirUnmotDuLexique();
+
 	//int creerVerif(const string& codeSecret);
 	
 private:
 	//int nbEtats_;
 	Etat* etatInitial_;
+	bool motChoisi_;
+	bool motExistePas_;
+	vector<string> motSugere_;
 };
 

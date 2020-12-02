@@ -13,6 +13,7 @@ int main()
     Automate automate;
 
     automate.creerLexique("lexique_1");
+	automate.choisirUnmotDuLexique();
 	//automate.creerVerif("bbbbb", "bbbbba");
 	//automate.modeAuto();
 	//modeAuto("lexique_1.txt");
@@ -67,7 +68,8 @@ void modeVersus(const string& lexique){
 	cin >> user1;
 
 	/*do{
-		cout << "Ce mot n'existe pas dans le lexique.\n\n Suggestion(s)\n Aucune..."
+		cout << "Ce mot n'existe pas dans le lexique.\n\n Suggestion(s)\n 
+		..."
 			 << "Choisir un code secret: ";
 			 cin >> user1;
 	} while (!find(vecteurLexique.begin(), vecteurLexique.end(), user1) != vecteurLexique.end())*/

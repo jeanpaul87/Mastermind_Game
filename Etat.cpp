@@ -82,7 +82,7 @@ char& Etat::getNomEtatvoisin(char& lettre) {
 
 Etat* Etat::getEtatSuivant(const char& lettre)
 {
-	Etat* etatChercher = new Etat('X',false,0,"");
+	Etat* etatChercher = new Etat('&',false,0,"");
 	for (int i = 0; i < getListEtatSuivant().size(); i++)
 	{
 		if (getListEtatSuivant().at(i)->getNomDeEtat() == lettre)

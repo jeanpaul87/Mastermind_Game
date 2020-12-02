@@ -107,37 +107,56 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 	//cout << "\n\n\n" << inputDeLUtilisateur<<"\n\n\n";
 	queue<Etat*> queue;
 	Etat* iterateur = etatInitial_;
-	int jangoTest = 0;
-
-	for (int i = 0; i < inputDeLUtilisateur.size(); i++)
-	{
-		iterateur->vientDeSeVisiter();
-		iterateur = iterateur->getEtatSuivant(inputDeLUtilisateur[i]);
-		//queue.push(iterateur);
-		cout << '\n' << iterateur->getNomDeEtat() << '\n';
-	}
-	for (int i = 0; i < iterateur->getListEtatSuivant().size(); i++)
-	{
-		queue.push(iterateur->getListEtatSuivant()[i]);
-	}
+	//int jangoTest = 0;
+	int compteurDeSuggetsion = 1;
+	bool ilyAUnMot = false;
 	while (!queue.empty())
 	{
-		iterateur = queue.front();
-		iterateur->vientDeSeVisiter();
-		if (iterateur->estSortie()) {
-			cout << iterateur->getLettrePrecedantesDeEtat() << "\n\n";
-			jangoTest++;
-		}
 		queue.pop();
-		for (auto i : iterateur->getListEtatSuivant()) {
-			if (!i->getEstVisiter())
-				queue.push(i);
-		}
 	}
-	cout << '\n' << jangoTest;
+	cout << "\n\nSuggestion(s)\n";
+		for (int i = 0; i < inputDeLUtilisateur.size(); i++)
+		{
+			iterateur->vientDeSeVisiter();
+			iterateur = iterateur->getEtatSuivant(inputDeLUtilisateur[i]);
+			
+			//queue.push(iterateur);
+			//cout << '\n' << iterateur->getNomDeEtat() << '\n';
+		}
+		for (int i = 0; i < iterateur->getListEtatSuivant().size(); i++)
+		{
+			queue.push(iterateur->getListEtatSuivant()[i]);
+		}
+		while (!queue.empty())
+		{
+			iterateur = queue.front();
+			iterateur->vientDeSeVisiter();
+			if (iterateur->estSortie()) {
+				cout << iterateur->getLettrePrecedantesDeEtat() << "\n";
+				motSugere_.push_back(iterateur->getLettrePrecedantesDeEtat());
+				compteurDeSuggetsion++;
+				ilyAUnMot = true;
+				motExistePas_ = false;
+				//pour montrer seulement 10 suggestions
+				if (compteurDeSuggetsion > 10)
+					return;
+			}
+			queue.pop();
+			for (auto i : iterateur->getListEtatSuivant()) {
+				if (!i->getEstVisiter())
+					queue.push(i);
+			}
+		}	
+		if (!ilyAUnMot) {//iterateur->getNomDeEtat() == '&'
+			cout << "\nAucune...\n\n";
+		}//cout << '\n' << jangoTest;
+		else {
+			motExistePas_ = true;
+		}
+		
 }
 
-		void Automate::modeAuto() {
+void Automate::modeAuto() {
 
 			srand(time(NULL));
 			bool fini = false;
@@ -161,4 +180,48 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 			cout << "\n" << etat->getLettrePrecedantesDeEtat();
 
 		}
+void Automate::choisirUnmotDuLexique() {
+	string motEtreeParUtilisateur = "";
+	int reponse;
+
+	motChoisi_ = false;
+	motExistePas_ = true;
+	cout << "Debut de la partie 1:\n\n";
+	cout << "Le premier joueur doit définit un code secret, qui est un mot tiré d’un lexique et constitué des lettres d’un alphabet donné\n";
+	cout << " Quel mot desirez-vous choisir, \n";
 	
+	
+		cout << "\n\n\n\nTEST\n";
+		cout << "\n\n> Quel code?\n";
+		cout << "Reponse: ";
+		cin >> motEtreeParUtilisateur;
+		suggestionDeMot(motEtreeParUtilisateur);
+		if (motExistePas_) {
+			cout << "Ce mot n'existe pas dans le lexique\n";
+			
+		}
+		else {
+			string ser;
+			cout << "Ce mot n'existe pas dans le lexique\n";
+			cout << " \n\nChoisissez un des codes de la liste de suggestion\n";
+			cin >> motEtreeParUtilisateur;
+
+			//si il trouve le mot dans la liste des mot suggere
+			if (std::find(motSugere_.begin(), motSugere_.end(), motEtreeParUtilisateur) != motSugere_.end())
+			{
+				cout << "Voulez-vous s'electionner ce code? (1:oui/0:non)\n";
+				cin >> reponse;
+				if (reponse == 1)
+					motChoisi_ = true;
+			}
+			else
+			{
+				
+			}
+		}
+
+	
+	
+
+	cout << "Debut de la partie 2:\n\n";
+}
