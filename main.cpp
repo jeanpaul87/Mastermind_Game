@@ -9,11 +9,10 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
     Automate automate;
 
-    automate.creerLexique("lexique_1");
-	automate.choisirUnmotDuLexique();
+    automate.creerLexique("Lexique_1");
+	//automate.choisirUnmotDuLexique();
 	//automate.creerVerif("bbbbb", "bbbbba");
 	//automate.modeAuto();
 	//modeAuto("lexique_1.txt");
@@ -21,10 +20,12 @@ int main()
 	//automate.suggestionDeMot("b");
 	//automate.creerVerif("bbbky", "bbbbb");
     //bool EXIT = false;
-    //bool estUnNumero(const string & reponse);
+    bool estUnNumero(const string & reponse);
+	bool estValide(const string & reponse);
 
-    /*string choixUser;
+    string choixUser, choixUserCase2, choixUserCase3;
 	string reponseUser = "";
+	string nomLexique = "";
 
     do {
 		cout << "Choisissez entre l'option 1, 2 et 3: " << endl << endl
@@ -34,11 +35,37 @@ int main()
 				<< "Choix : ";
 
 			cin >> choixUser;
-		} while (!estUnNumero(choixUser) || !(choixUser == "1") || !(choixUser == "2") || !(choixUser == "3"));
-*/
+		} while (!estUnNumero(choixUser) || !estValide(choixUser));
+
+		switch (stoi(choixUser)) {
+			case 1: {
+
+				cout << "Entrez le nom du lexique (sans le .txt):";
+				cin >> nomLexique;
+				automate.creerLexique(nomLexique);
+				break;
+			}
+			case 2: {
+				string motRandom = automate.modeAuto();
+				do {
+					cout << "Entrez un mot a deviner d'une taille de " << motRandom.size() << " caracteres:\n";
+					cin >> choixUserCase2;
+
+				} while (!automate.creerVerif(motRandom, choixUserCase2));
+				break;
+			}
+			case 3: {
+				cout << "Entrez le code secret que l'usager devrait deviner: ";
+				cin >> choixUserCase3;
+				automate.suggestionDeMot(choixUserCase3);
+
+				break;
+			}
+		}
+
 }
 
-/*bool estUnNumero(const string& reponse) {
+bool estUnNumero(const string& reponse) {
 	string::const_iterator i = reponse.begin();
 	while (i != reponse.end() && isdigit(*i)) ++i;
 	if (!reponse.empty() && i == reponse.end())
@@ -48,11 +75,25 @@ int main()
 		return false;
 	}
 }
-*/
+
+bool estValide(const string& reponse) {
+
+	string un = "1";
+	string deux = "2";
+	string trois = "3";
+
+	if (reponse == un || reponse == deux || reponse == trois)
+		return true;
+	else {
+		cout << endl << "***Choisir une option valide***" << endl << endl;
+		return false;
+	}
+}
 
 
 
-void modeVersus(const string& lexique){
+
+/*void modeVersus(const string& lexique){
 
 	string motChoisiOrdinateur;
 
@@ -67,17 +108,12 @@ void modeVersus(const string& lexique){
 	cout << "Choisir un code secret: ";
 	cin >> user1;
 
-	/*do{
+	do{
 		cout << "Ce mot n'existe pas dans le lexique.\n\n Suggestion(s)\n 
 		..."
 			 << "Choisir un code secret: ";
 			 cin >> user1;
-	} while (!find(vecteurLexique.begin(), vecteurLexique.end(), user1) != vecteurLexique.end())*/
+	} while (!find(vecteurLexique.begin(), vecteurLexique.end(), user1) != vecteurLexique.end())
 
 
-
-}
-
-//1- input une lettre et suggest des mots
-	//user input bb
-//2- find a word in automate
+}*/

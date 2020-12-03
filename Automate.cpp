@@ -37,19 +37,11 @@ void Automate::creerLexique(const string& lexique)
 				
 				//verifier si on a pas un voisin de la lettre 
 				if (!etatActuelle->voisinTrouver(a)) {
-					etatActuelle->ajouterEtat(new Etat(a, (i == (mot.size() - 1)), i + 1,mot));//peut etre on va faire i+1
-					//etatActuelle->ajouterSigma(s);
-					//etatActuelle = etatActuelle->getListEtatSuivant().back();
+					etatActuelle->ajouterEtat(new Etat(a, (i == (mot.size() - 1)), i + 1,mot));
 
-					//ajouter le prefix du mot
-					/*if (i == mot.size()) {
-						etatActuelle->setLettrePrecedantesDeEtat(mot);
-					}
-					else {*/
 						if (i > 0)
 							lettrePrecedantesDeEtat = mot.substr(0, etatActuelle->getNumeroEtat());
 						etatActuelle->setLettrePrecedantesDeEtat(lettrePrecedantesDeEtat );
-					//}
 				}
 
 				for (int j = 0; j < etatActuelle->getListEtatSuivant().size(); j++)
@@ -61,20 +53,19 @@ void Automate::creerLexique(const string& lexique)
 				}
 				
 			}
-			
+
 			
 		}
 	}
 	else { cout << "ERREUR D'OUVERTURE DU FICHIER"; }
 
 	Etat* b = etatInitial_;
-	//delete etatActuelle;
-	//delete b;
+
 }
 
 
 //prendre en parametre l'automate mot a la place dun string
-void Automate::creerVerif( const string& codeSecret, const string& codeEssayer ) {//PE ETRE ON VA LE CHANGER !!
+bool Automate::creerVerif( const string& codeSecret, const string& codeEssayer ) {//PE ETRE ON VA LE CHANGER !!
 	int nbFausseLettre = 0;
 	Etat* tempEtat = etatInitial_;
 
@@ -83,20 +74,17 @@ void Automate::creerVerif( const string& codeSecret, const string& codeEssayer )
 			if (tempEtat->getNomDeEtat() != codeEssayer[i]) {
 				nbFausseLettre++;
 			}
-		cout << '\n'<<tempEtat->getNomDeEtat();
+		//cout << '\n'<<tempEtat->getNomDeEtat();
 		
 	}
-	cout << "\nVous azez " << nbFausseLettre << " Lettre faux.\n";
+	cout << "\nVous assez " << nbFausseLettre << " lettre faux.\n";
 
-	/*for (int i = 0; i < codeSecret.size(); i++)
-	{
-		std::string s(1, codeSecret[i]);
-		if (tempEtat->getNomEtatvoisin((char&)codeSecret[i]) != codeSecret[i]) {
-			nbFausseLettre++;
-		}
-		tempEtat = tempEtat->getEtatSuivant(s);
+	if (nbFausseLettre == 0) {
+		return true;
 	}
-	cout<< nbFausseLettre;*/
+	else {
+		return false;
+	}
 }
 
 Etat* Automate::getEtatIniatale() {
@@ -104,10 +92,9 @@ Etat* Automate::getEtatIniatale() {
 }
 void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 
-	//cout << "\n\n\n" << inputDeLUtilisateur<<"\n\n\n";
 	queue<Etat*> queue;
 	Etat* iterateur = etatInitial_;
-	//int jangoTest = 0;
+
 	int compteurDeSuggetsion = 1;
 	bool ilyAUnMot = false;
 	while (!queue.empty())
@@ -120,8 +107,6 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 			iterateur->vientDeSeVisiter();
 			iterateur = iterateur->getEtatSuivant(inputDeLUtilisateur[i]);
 			
-			//queue.push(iterateur);
-			//cout << '\n' << iterateur->getNomDeEtat() << '\n';
 		}
 		for (int i = 0; i < iterateur->getListEtatSuivant().size(); i++)
 		{
@@ -137,7 +122,7 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 				compteurDeSuggetsion++;
 				ilyAUnMot = true;
 				motExistePas_ = false;
-				//pour montrer seulement 10 suggestions
+
 				if (compteurDeSuggetsion > 10)
 					return;
 			}
@@ -147,16 +132,16 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 					queue.push(i);
 			}
 		}	
-		if (!ilyAUnMot) {//iterateur->getNomDeEtat() == '&'
+		if (!ilyAUnMot) {
 			cout << "\nAucune...\n\n";
-		}//cout << '\n' << jangoTest;
+		}
 		else {
 			motExistePas_ = true;
 		}
 		
 }
 
-void Automate::modeAuto() {
+string Automate::modeAuto() {
 
 			srand(time(NULL));
 			bool fini = false;
@@ -167,19 +152,18 @@ void Automate::modeAuto() {
 				cout << "ITSEMPTY\n\n";
 			while (!fini && !etat->getListEtatSuivant().empty()) {
 				randomInt = rand() % etat->getListEtatSuivant().size();
-				cout << "HOP\n";
-				cout << randomInt << '\n';
 				etat = etat->getListEtatSuivant().at(randomInt);
 				if (etat->estSortie())
 					if (((rand() % (2)) == 1)) {
-						cout << "\n" << etat->getLettrePrecedantesDeEtat();
+
 						fini = true;
 					}
 
 			}
-			cout << "\n" << etat->getLettrePrecedantesDeEtat();
 
+			return etat->getLettrePrecedantesDeEtat();
 		}
+
 void Automate::choisirUnmotDuLexique() {
 	string motEtreeParUtilisateur = "";
 	int reponse;
@@ -219,9 +203,6 @@ void Automate::choisirUnmotDuLexique() {
 				
 			}
 		}
-
-	
-	
 
 	cout << "Debut de la partie 2:\n\n";
 }

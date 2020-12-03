@@ -15,17 +15,15 @@ public:
 
 	void creerLexique(const string& lexique);
 
-	void creerVerif(const string& codeSecret, const string& codeEssayer);
+	bool creerVerif(const string& codeSecret, const string& codeEssayer);
 
 	Etat* getEtatIniatale();
 
 	void suggestionDeMot(const string& inputDeLUtilisateur);
 
-	void modeAuto();
+	string modeAuto();
 
 	void choisirUnmotDuLexique();
-
-	//int creerVerif(const string& codeSecret);
 	
 private:
 	//int nbEtats_;
