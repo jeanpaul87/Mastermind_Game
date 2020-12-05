@@ -94,9 +94,9 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 
 	queue<Etat*> queue;
 	Etat* iterateur = etatInitial_;
-
+	bool motEstValide = false;
 	int compteurDeSuggetsion = 1;
-	bool ilyAUnMot = false;
+	setilyAUnMot(false);
 	while (!queue.empty())
 	{
 		queue.pop();
@@ -107,11 +107,15 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 			iterateur->vientDeSeVisiter();
 			iterateur = iterateur->getEtatSuivant(inputDeLUtilisateur[i]);
 			
+		}if (iterateur->estSortie()) {
+			motEstValide = true;
 		}
 		for (int i = 0; i < iterateur->getListEtatSuivant().size(); i++)
 		{
 			queue.push(iterateur->getListEtatSuivant()[i]);
 		}
+		if (iterateur->estSortie())
+			setilyAUnMot(true);
 		while (!queue.empty())
 		{
 			iterateur = queue.front();
@@ -119,12 +123,9 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 			if (iterateur->estSortie()) {
 				cout << iterateur->getLettrePrecedantesDeEtat() << "\n";
 				motSugere_.push_back(iterateur->getLettrePrecedantesDeEtat());
+				//cout << motSugere_.back() << "\n";
 				compteurDeSuggetsion++;
-				ilyAUnMot = true;
 				motExistePas_ = false;
-
-				if (compteurDeSuggetsion > 10)
-					return;
 			}
 			queue.pop();
 			for (auto i : iterateur->getListEtatSuivant()) {
@@ -132,13 +133,12 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 					queue.push(i);
 			}
 		}	
-		if (!ilyAUnMot) {
+		/*if (!ilyAUnMot) {
 			cout << "\nAucune...\n\n";
 		}
 		else {
 			motExistePas_ = true;
-		}
-		
+		}*/
 }
 
 string Automate::modeAuto() {
@@ -163,8 +163,22 @@ string Automate::modeAuto() {
 
 			return etat->getLettrePrecedantesDeEtat();
 		}
-
-void Automate::choisirUnmotDuLexique() {
+bool Automate::isDansLaListeSuggere(string motAVerifier) {
+	for (auto i : motSugere_)
+	{
+		if (i == motAVerifier) {
+			return true;
+		}
+	}
+	return false;
+}
+bool Automate::getilyAUnMot() {
+	return ilyAUnMot_;
+}
+void Automate::setilyAUnMot(bool valeur) {
+	ilyAUnMot_ = valeur;
+}
+/*void Automate::choisirUnmotDuLexique() {
 	string motEtreeParUtilisateur = "";
 	int reponse;
 
@@ -203,6 +217,4 @@ void Automate::choisirUnmotDuLexique() {
 				
 			}
 		}
-
-	cout << "Debut de la partie 2:\n\n";
-}
+}*/

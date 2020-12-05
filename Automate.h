@@ -23,6 +23,12 @@ public:
 
 	string modeAuto();
 
+	bool isDansLaListeSuggere(string motAVerifier);
+
+	bool getilyAUnMot();
+
+	void setilyAUnMot(bool valeur);
+
 	void choisirUnmotDuLexique();
 	
 private:
@@ -30,6 +36,7 @@ private:
 	Etat* etatInitial_;
 	bool motChoisi_;
 	bool motExistePas_;
+	bool ilyAUnMot_;
 	vector<string> motSugere_;
 };
 

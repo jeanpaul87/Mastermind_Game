@@ -11,28 +11,22 @@ int main()
 {
     Automate automate;
 
-    automate.creerLexique("Lexique_1");
-	//automate.choisirUnmotDuLexique();
-	//automate.creerVerif("bbbbb", "bbbbba");
-	//automate.modeAuto();
-	//modeAuto("lexique_1.txt");
-
-	//automate.suggestionDeMot("b");
-	//automate.creerVerif("bbbky", "bbbbb");
-    //bool EXIT = false;
     bool estUnNumero(const string & reponse);
 	bool estValide(const string & reponse);
 
-    string choixUser, choixUserCase2, choixUserCase3;
+	bool EXIT = false;
+
+    string choixUser, choixUserCase2, choixUserCase3, guessUserCase3;
 	string reponseUser = "";
 	string nomLexique = "";
 
+while(!EXIT){
     do {
-		cout << "Choisissez entre l'option 1, 2 et 3: " << endl << endl
-		    	<< "(1) Lire un lexique." << endl
-				<< "(2) Mode Auto." << endl
-				<< "(3) Mode Versus." << endl
-				<< "Choix : ";
+		cout<< endl << "Choisissez entre l'option 1, 2 et 3: " << endl << endl
+		    << "(1) Lire un lexique." << endl
+			<< "(2) Mode Auto." << endl
+			<< "(3) Mode Versus." << endl
+			<< "Choix : ";
 
 			cin >> choixUser;
 		} while (!estUnNumero(choixUser) || !estValide(choixUser));
@@ -47,6 +41,9 @@ int main()
 			}
 			case 2: {
 				string motRandom = automate.modeAuto();
+
+				cout << motRandom;
+
 				do {
 					cout << "Entrez un mot a deviner d'une taille de " << motRandom.size() << " caracteres:\n";
 					cin >> choixUserCase2;
@@ -55,14 +52,26 @@ int main()
 				break;
 			}
 			case 3: {
+
+				do{
 				cout << "Entrez le code secret que l'usager devrait deviner: ";
 				cin >> choixUserCase3;
 				automate.suggestionDeMot(choixUserCase3);
+				} while(!automate.getilyAUnMot());
+				
+				//cout<<'\n'<<boolalpha<<automate.isDansLaListeSuggere(choixUserCase3);
 
+				cout << "Devinez le mot entre: ";
+				cin >> guessUserCase3;
+
+				automate.creerVerif(choixUserCase3, guessUserCase3);
+
+				EXIT = true;
 				break;
 			}
 		}
 
+	}
 }
 
 bool estUnNumero(const string& reponse) {
