@@ -26,10 +26,13 @@ void Automate::creerLexique(const string& lexique)
 			string lettrePrecedantesDeEtat= "";
 			etatActuelle = etatInitial_;
 			getline(fichier, mot);
-			if (mot == "byyyy")
-				int a = 0;
-
 			//iterer chaque lettre du mot
+			if (mot == "rywpg") {
+				int a = 0;
+			}
+			if (mot == "pbkpw") {
+				int a = 0;
+			}
 			for (int i = 0; i < mot.size(); i++)
 			{
 				char a = mot[i];
@@ -48,8 +51,11 @@ void Automate::creerLexique(const string& lexique)
 				{
 					if (etatActuelle->getListEtatSuivant().at(j)->getNomDeEtat() == a) {
 						etatActuelle = etatActuelle->getListEtatSuivant().at(j);
+						break;
 					}
-					
+				}
+				if (i == mot.size() - 1) {
+					etatActuelle->setSorti();
 				}
 				
 			}
@@ -92,6 +98,8 @@ Etat* Automate::getEtatIniatale() {
 }
 void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 
+				ofstream file;
+				file.open("codebind4.txt");
 	queue<Etat*> queue;
 	Etat* iterateur = etatInitial_;
 	bool motEstValide = false;
@@ -122,6 +130,7 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 			iterateur->vientDeSeVisiter();
 			if (iterateur->estSortie()) {
 				cout << iterateur->getLettrePrecedantesDeEtat() << "\n";
+				file << iterateur->getLettrePrecedantesDeEtat()<<"\n";
 				motSugere_.push_back(iterateur->getLettrePrecedantesDeEtat());
 				//cout << motSugere_.back() << "\n";
 				compteurDeSuggetsion++;

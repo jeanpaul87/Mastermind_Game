@@ -55,7 +55,9 @@ vector<Etat*> Etat::getListEtatSuivant()
 bool Etat::getEstVisiter() {
 	return estVisiter_;
 }
-
+void Etat::setSorti() {
+	estSortie_ = true;
+}
 bool Etat::estSortie() {
 	return estSortie_;
 }

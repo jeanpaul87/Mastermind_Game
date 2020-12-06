@@ -24,6 +24,7 @@ public:
 
 	vector<Etat*> getListEtatSuivant();
 	bool getEstVisiter();
+	void setSorti();
 	vector<string> getListlisteSigma();
 
 	char& getNomDeEtat();
