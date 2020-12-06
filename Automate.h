@@ -30,7 +30,7 @@ public:
 	void setilyAUnMot(bool valeur);
 
 	void choisirUnmotDuLexique();
-	
+
 private:
 	//int nbEtats_;
 	Etat* etatInitial_;
@@ -39,4 +39,3 @@ private:
 	bool ilyAUnMot_;
 	vector<string> motSugere_;
 };
-

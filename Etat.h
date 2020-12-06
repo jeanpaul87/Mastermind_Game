@@ -6,7 +6,7 @@ using namespace std;
 class Etat
 {
 public:
-	Etat(char nom, bool estSortie, int numero,string nomEtatPrecedant);
+	Etat(char nom, bool estSortie, int numero, string nomEtatPrecedant);
 	~Etat();
 
 	void ajouterEtat(Etat* sortant);

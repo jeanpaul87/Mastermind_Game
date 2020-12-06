@@ -16,7 +16,7 @@ Etat::~Etat()
 
 void Etat::ajouterEtat(Etat* sortant)
 {
-    etatSuivant_.push_back(sortant);
+	etatSuivant_.push_back(sortant);
 }
 
 void Etat::ajouterSigma(string& sigma)
@@ -27,7 +27,7 @@ void Etat::ajouterSigma(string& sigma)
 			estTrouver = true;
 		}
 	}
-	if(!estTrouver)listeSigma_.push_back(sigma);
+	if (!estTrouver)listeSigma_.push_back(sigma);
 }
 void Etat::setLettrePrecedantesDeEtat(string mot) {
 	LettrePrecedantesDeEtat_ = mot;
@@ -38,11 +38,11 @@ string Etat::getLettrePrecedantesDeEtat()
 }
 bool Etat::voisinTrouver(char& lettre)
 {
-	for (int i = 0; i < getListEtatSuivant().size(); i++){
-	
-		if(getListEtatSuivant().at(i)->getNomDeEtat() == lettre)
+	for (int i = 0; i < getListEtatSuivant().size(); i++) {
+
+		if (getListEtatSuivant().at(i)->getNomDeEtat() == lettre)
 			return true;
- 	}
+	}
 	return false;
 }
 void Etat::vientDeSeVisiter() {
@@ -75,7 +75,7 @@ char& Etat::getNomDeEtat() {
 
 char& Etat::getNomEtatvoisin(char& lettre) {
 	char returning = '&';
-	for (int i = 0; i < etatSuivant_.size() ; i++)
+	for (int i = 0; i < etatSuivant_.size(); i++)
 	{
 		if (etatSuivant_[i]->getNomDeEtat() == lettre) return etatSuivant_[i]->getNomDeEtat();
 		return returning;
@@ -84,7 +84,7 @@ char& Etat::getNomEtatvoisin(char& lettre) {
 
 Etat* Etat::getEtatSuivant(const char& lettre)
 {
-	Etat* etatChercher = new Etat('&',false,0,"");
+	Etat* etatChercher = new Etat('&', false, 0, "");
 	for (int i = 0; i < getListEtatSuivant().size(); i++)
 	{
 		if (getListEtatSuivant().at(i)->getNomDeEtat() == lettre)
