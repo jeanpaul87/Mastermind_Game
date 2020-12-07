@@ -20,7 +20,7 @@ void Etat::ajouterEtat(Etat* sortant)
 }
 
 void Etat::ajouterSigma(string& sigma)
-{//POTENTIAL ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! <---- q(0_0)p
+{
 	bool estTrouver = false;
 	for (auto it : listeSigma_) {
 		if (sigma == it) {

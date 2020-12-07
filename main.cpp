@@ -48,12 +48,11 @@ int main()
 			case 2: {
 				string motRandom = automate.modeAuto();
 
-				cout << motRandom;
-
 				do {
-					cout << "Entrez un mot a deviner d'une taille de " << motRandom.size() << " caracteres:\n";
-					cin >> choixUserCase2;
-
+					do {
+						cout << "Entrez un mot a deviner d'une taille de " << motRandom.size() << " caracteres:\n";
+						cin >> choixUserCase2;
+					} while (choixUserCase2.size() != motRandom.size());
 				} while (!automate.creerVerif(motRandom, choixUserCase2));
 				break;
 			}
@@ -90,8 +89,10 @@ int main()
 				do {
 					cout << "Devinez le mot entre: ";
 					cin >> guessUserCase3;
-					if (automate.creerVerif(choixUserCase3, guessUserCase3) == true) {
-						reponse = true;
+					if (choixUserCase3.size() == guessUserCase3.size()) {
+						if (automate.creerVerif(choixUserCase3, guessUserCase3) == true) {
+							reponse = true;
+						}
 					}
 					else {
 						reponse = false;

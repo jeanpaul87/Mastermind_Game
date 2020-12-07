@@ -29,10 +29,8 @@ public:
 
 	void setilyAUnMot(bool valeur);
 
-	void choisirUnmotDuLexique();
 
 private:
-	//int nbEtats_;
 	Etat* etatInitial_;
 	bool motChoisi_;
 	bool motExistePas_;

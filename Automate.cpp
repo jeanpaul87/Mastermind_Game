@@ -2,7 +2,11 @@
 #include <list>
 #include <queue>
 #include <time.h>
-
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 
 Automate::Automate() : etatInitial_(new Etat(' ', false, 0, ""))
 {
@@ -26,17 +30,11 @@ void Automate::creerLexique(const string& lexique)
 			string lettrePrecedantesDeEtat = "";
 			etatActuelle = etatInitial_;
 			getline(fichier, mot);
+
 			//iterer chaque lettre du mot
-			if (mot == "rywpg") {
-				int a = 0;
-			}
-			if (mot == "pbkpw") {
-				int a = 0;
-			}
 			for (int i = 0; i < mot.size(); i++)
 			{
 				char a = mot[i];
-				//string s(1, a);
 
 				//verifier si on a pas un voisin de la lettre 
 				if (!etatActuelle->voisinTrouver(a)) {
@@ -64,9 +62,6 @@ void Automate::creerLexique(const string& lexique)
 		}
 	}
 	else { cout << "ERREUR D'OUVERTURE DU FICHIER"; }
-
-	Etat* b = etatInitial_;
-
 }
 
 
@@ -80,12 +75,22 @@ bool Automate::creerVerif(const string& codeSecret, const string& codeEssayer) {
 		if (tempEtat->getNomDeEtat() != codeEssayer[i]) {
 			nbFausseLettre++;
 		}
-		//cout << '\n'<<tempEtat->getNomDeEtat();
 
 	}
+	if(nbFausseLettre != 0)
 	cout << "\nVous assez " << nbFausseLettre << " lettre faux.\n";
 
 	if (nbFausseLettre == 0) {
+		cout << "\n\nBravo ! vous avez gagne ! \n\nAttendez quelque seconds pour reclamez votre cadeaux \n";
+		cout << " \n\nAttendez ";
+		for (int i = 0; i < 3; i++)
+		{
+			Sleep(1500);
+			cout << " .";
+		}
+		Sleep(1000);
+		cout << "\n\nMalheuresement le generateur de cadeaux est vide. :/  \n";
+
 		return true;
 	}
 	else {
@@ -98,8 +103,7 @@ Etat* Automate::getEtatIniatale() {
 }
 void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 
-	ofstream file;
-	file.open("codebind4.txt");
+	
 	queue<Etat*> queue;
 	Etat* iterateur = etatInitial_;
 	bool motEstValide = false;
@@ -130,9 +134,8 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 		iterateur->vientDeSeVisiter();
 		if (iterateur->estSortie()) {
 			cout << iterateur->getLettrePrecedantesDeEtat() << "\n";
-			file << iterateur->getLettrePrecedantesDeEtat() << "\n";
 			motSugere_.push_back(iterateur->getLettrePrecedantesDeEtat());
-			//cout << motSugere_.back() << "\n";
+			
 			compteurDeSuggetsion++;
 			motExistePas_ = false;
 		}
@@ -142,12 +145,6 @@ void Automate::suggestionDeMot(const string& inputDeLUtilisateur) {
 				queue.push(i);
 		}
 	}
-	/*if (!ilyAUnMot) {
-		cout << "\nAucune...\n\n";
-	}
-	else {
-		motExistePas_ = true;
-	}*/
 }
 
 string Automate::modeAuto() {
